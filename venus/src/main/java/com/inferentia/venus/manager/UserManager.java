@@ -2,6 +2,8 @@ package com.inferentia.venus.manager;
 
 import java.util.UUID;
 
+import org.springframework.context.ApplicationContext;
+
 import com.inferentia.venus.dao.UserInfoDao;
 import com.inferentia.venus.pojo.UserCreationPayload;
 import com.inferentia.venus.pojo.UserCreationResponse;
@@ -29,4 +31,5 @@ public class UserManager {
 		boolean isUserCreated = userInfoDao.createUser(userInfo);
 		return new UserCreationResponse(userID, isUserCreated);
 	}
+	
 }

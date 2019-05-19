@@ -32,7 +32,7 @@
      <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            classpath:test2app.xml
+            classpath:beans.xml
           </param-value>
 	</context-param>
 
@@ -41,7 +41,7 @@
 		<servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
 		<init-param>
 			<param-name>com.sun.jersey.config.property.packages</param-name>
-			<param-value>testPackage</param-value>
+			<param-value>com.inferentia.venus.api</param-value>
 		</init-param>
 		<init-param>
 			<param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
