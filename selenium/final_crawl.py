@@ -1,0 +1,114 @@
+from selenium import webdriver
+from random import randrange
+import time
+import re
+from selenium.webdriver.common.keys import Keys
+
+pageNumber = 1
+
+while pageNumber<=1:
+	url = "https://www.commonfloor.com/bangalore-property/for-sale/status-completed/projects?page="+str(pageNumber)
+	# driver = webdriver.Chrome(executable_path = r"C:/webdriver/chromedriver.exe")
+	# driver = webdriver.Chrome(executable_path='chromedriver')
+	chrome_options = webdriver.ChromeOptions()
+	chrome_options.add_argument("--incognito")
+
+	driver = webdriver.Chrome(chrome_options=chrome_options,executable_path='chromedriver')
+
+	driver.maximize_window()
+	driver.get(url)
+
+	# notNowButton = driver.findElement(By.xpath("//button[contains(.,'" + "NOT NOW" + "')]"));
+	# notNowButton.click()
+
+	notNowButtons = driver.find_elements_by_class_name('wpn_modal_actionButton')
+	for e in notNowButtons:
+		action=webdriver.ActionChains(driver)
+		action.move_to_element(e).click().perform()
+		break
+
+	print "Initiating script... "
+	time.sleep(1)
+
+	documents = driver.find_elements_by_xpath("//*[@class='btn quick-view pull-right mrtp10 cf-tracking-enabled']") 
+
+	# totalButtons = len(documents)
+	# print totalButtons
+	# count = 0
+	# while (count < totalButtons):
+	# 	# document = driver.find_elements_by_xpath("//*[@class='btn quick-view pull-right mrtp10 cf-tracking-enabled']")[count]
+	# 	document = driver.find_element_by_xpath("//*[@class='btn quick-view pull-right mrtp10 cf-tracking-enabled']")
+
+	# 	action=webdriver.ActionChains(driver)
+	# 	action.move_to_element(document).click().perform()
+
+	 
+	# 	print "fetching button: "
+	# 	print document.text
+	# 	print "other print"
+	# 	print documents[count].text
+	# 	# document.click()
+	# 	print "sleeping for 4 secs"
+	# 	time.sleep(4)
+	# 	print "pressing esc key"
+	# 	webdriver.ActionChains(driver).send_keys(Keys.ESCAPE).perform()
+	# 	print "pressed esc key"
+	# 	count = count+1
+	# 	if count == 3:
+	# 		break
+
+	print "closing ad"
+	driver.execute_script("window.scrollTo(0, 500)") 
+	time.sleep(1)
+
+	adSuppress = driver.find_elements_by_class_name('closead')
+	for e in adSuppress:
+		action=webdriver.ActionChains(driver)
+		action.move_to_element(e).click().perform()
+
+	time.sleep(3)
+
+	print "Fetching data..."
+	count = 0
+	for document in documents:
+		# script = "document.click()"
+		# driver.execute_script(script)
+		count=count+1
+		if count == 1:
+			continue
+		action=webdriver.ActionChains(driver)
+		action.move_to_element(document).click().perform()
+		time.sleep(3)
+		ttt = driver.find_element_by_xpath('//*[@class="modal-header"]')
+		flatName=ttt.text
+		elem = driver.find_element_by_xpath('//*[@id="serp-quick-view-modal"]')
+		source_code = elem.get_attribute("outerHTML")
+		# f.write(source_code.encode('utf-8'))
+		numOfUnits = source_code.split('NO OF UNITS ')[1].split('</span>')[0].split('<span>')[1]
+		location = source_code.split('LOCATION ')[1].split('</span>')[0].split('<span>')[1]
+		# print(source_code.split('NO OF UNITS ')[1].split('</span>')[0]
+		#       .split('<span>')[1])
+		# print(source_code.split('LOCATION ')[1].split('</span>')[0]
+		#       .split('<span>')[1])
+		# f.write(source_code.split('NO OF UNITS ')[1].split('</span>')[0]
+		#       .split('<span>')[1])
+		# f.write(source_code.split('LOCATION ')[1].split('</span>')[0]
+		#       .split('<span>')[1])
+		f = open('results.txt', 'a+')
+		fileVar=""+flatName + "," +numOfUnits.decode('utf-8')  + "," + location.decode('utf-8') + ""
+		print fileVar
+		f.write(fileVar)
+		f.close()
+		# driver.switchTo().alert().getText()
+		webdriver.ActionChains(driver).send_keys(Keys.ESCAPE).perform()
+		time.sleep(1)
+	pageNumber=pageNumber+1
+
+	# driver.execute_script(f)
+	# time.sleep(1)
+	# elem = driver.find_element_by_xpath('//*[@id="serp-quick-view-modal"]')
+	# source_code = elem.get_attribute("outerHTML")
+	# print(source_code.split('NO OF UNITS ')[1].split('</span>')[0]
+	#       .split('<span>')[1])
+	# # driver.switchTo().alert().getText()
+	# driver.close()

@@ -39,7 +39,7 @@ public class VMInfoDao {
 	 }
 	 
 	 
-	 public boolean createUser(VMInfo info) {
+	 public boolean createMachineDetails(VMInfo info) {
 		 List<Object> args = new ArrayList<Object>();
 		 args.add(info.getMachineID().toString());
 		 args.add(info.getIngredientType().name());

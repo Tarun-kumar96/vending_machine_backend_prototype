@@ -9,6 +9,20 @@ public class VMInfo {
 	private String ingredientName;
 	private Integer ingredientAmount;
 	private String ingredientUnit;
+	
+	public VMInfo(UUID machineID, IngredientType ingredientType, Integer collectorNumber, String ingredientName,
+			Integer ingredientAmount, String ingredientUnit) {
+		this.machineID = machineID;
+		this.ingredientType = ingredientType;
+		this.collectorNumber = collectorNumber;
+		this.ingredientName = ingredientName;
+		this.ingredientAmount = ingredientAmount;
+		this.ingredientUnit = ingredientUnit;
+	}
+	
+	public VMInfo() {
+		
+	}
 	public UUID getMachineID() {
 		return machineID;
 	}

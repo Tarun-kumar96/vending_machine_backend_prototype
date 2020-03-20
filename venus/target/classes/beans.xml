@@ -23,8 +23,10 @@
 	<constructor-arg name = "paymentsDao" ref = "paymentsDao"/>
 	</bean>
 	
-	 <bean id = "userManager" class = "com.inferentia.venus.manager.UserManager">
+	 <bean id = "infoManager" class = "com.inferentia.venus.manager.InfoManager">
 	<constructor-arg name = "userInfoDao" ref = "userInfoDao"/>
+	<constructor-arg name = "vmInfoDao" ref = "vmInfoDao"/>
+	<constructor-arg name = "productRecipeDao" ref = "productRecipeDao"/>
 	</bean>
 	
 	<bean id = "paymentsDao" class = "com.inferentia.venus.dao.PaymentsDao">
@@ -34,6 +36,15 @@
 	<bean id = "userInfoDao" class = "com.inferentia.venus.dao.UserInfoDao">
 	<constructor-arg name = "dataSource" ref = "dataSource"/>
 	</bean>
+	
+	<bean id = "vmInfoDao" class = "com.inferentia.venus.dao.VMInfoDao">
+	<constructor-arg name = "dataSource" ref = "dataSource"/>
+	</bean>
+	
+	<bean id = "productRecipeDao" class = "com.inferentia.venus.dao.MachineProductRecipesDao">
+	<constructor-arg name = "dataSource" ref = "dataSource"/>
+	</bean>
+	
 	   
 
 </beans>

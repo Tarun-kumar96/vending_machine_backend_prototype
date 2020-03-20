@@ -30,12 +30,11 @@ CREATE TABLE IF NOT EXISTS machine_details (
 
 CREATE TABLE IF NOT EXISTS machine_product_recipes (
     machine_id VARCHAR(255) NOT NULL,
-    product_id VARCHAR(255) NOT NULL,
     product_name VARCHAR(255) NOT NULL,
     amount_unit VARCHAR(10),
     amounts_required INT,
-    recipe_json TEXT,
-    PRIMARY KEY (machine_id,product_id,amount_unit,amounts_required)
+    recipe_code TEXT,
+    PRIMARY KEY (machine_id)
 );
 
 
